@@ -45,7 +45,6 @@ namespace DiscordBotBuilder.Services
             }
         }
 
-        // Chiffre le token Discord
         public string EncryptToken(string token)
         {
             try
@@ -53,7 +52,7 @@ namespace DiscordBotBuilder.Services
                 using (var aes = Aes.Create())
                 {
                     aes.Key = Encoding.UTF8.GetBytes(EncryptionKey);
-                    aes.IV = new byte[16]; // IV simple pour cet exemple
+                    aes.IV = new byte[16]; 
 
                     using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
                     using (var ms = new MemoryStream())
@@ -80,7 +79,7 @@ namespace DiscordBotBuilder.Services
                 using (var aes = Aes.Create())
                 {
                     aes.Key = Encoding.UTF8.GetBytes(EncryptionKey);
-                    aes.IV = new byte[16]; // Même IV que pour le chiffrement
+                    aes.IV = new byte[16]; 
 
                     using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
                     using (var ms = new MemoryStream(Convert.FromBase64String(encryptedToken)))
@@ -197,21 +196,16 @@ namespace DiscordBotBuilder.Services
                     sb.AppendLine();
                 }
 
-                // Token et démarrage
                 sb.AppendLine($"bot.run('{decryptedToken}')");
 
                 File.WriteAllText(filePath, sb.ToString());
             }
         }
 
-        // Valide un token Discord
         public bool ValidateToken(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
                 return false;
-
-            // Un token Discord valide a généralement cette forme
-            // Il y a 3 parties séparées par des points
             var parts = token.Split('.');
             return parts.Length == 3;
         }
