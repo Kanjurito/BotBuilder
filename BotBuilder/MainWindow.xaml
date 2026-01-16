@@ -1,0 +1,250 @@
+﻿<Window x:Class="DiscordBotBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Discord Bot Builder" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu supérieur -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="Fichier">
+                <MenuItem Header="Nouvelle configuration" Click="NewConfig_Click"/>
+                <MenuItem Header="Charger configuration..." Click="LoadConfig_Click"/>
+                <MenuItem Header="Sauvegarder configuration..." Click="SaveConfig_Click"/>
+                <Separator/>
+                <MenuItem Header="Exporter en Python..." Click="ExportPython_Click"/>
+                <Separator/>
+                <MenuItem Header="Quitter" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Aide">
+                <MenuItem Header="Documentation Discord.Net" Click="Help_Click"/>
+                <MenuItem Header="À propos" Click="About_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Contenu principal avec onglets -->
+        <TabControl Grid.Row="1" Margin="10">
+
+            <!-- Onglet Configuration Générale -->
+            <TabItem Header="⚙️ Configuration">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Informations du bot" Margin="0,0,0,10">
+                            <StackPanel Margin="10">
+                                <Label Content="Nom du bot:"/>
+                                <TextBox x:Name="txtBotName" Text="Mon Bot Discord" Margin="0,0,0,10"/>
+
+                                <Label Content="Token Discord: *"/>
+                                <PasswordBox x:Name="txtToken" Margin="0,0,0,5"/>
+                                <TextBlock Text="⚠️ Ne partagez jamais votre token !" Foreground="Red" FontSize="10" Margin="0,0,0,10"/>
+
+                                <Label Content="Préfixe des commandes:"/>
+                                <TextBox x:Name="txtPrefix" Text="!" MaxLength="5"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Contrôle du bot" Margin="0,0,0,10">
+                            <StackPanel Margin="10">
+                                <Button x:Name="btnStartBot" Content="▶️ Démarrer le bot" 
+                                        Click="StartBot_Click" Height="35" Margin="0,0,0,5"
+                                        Background="#43B581" Foreground="White" FontWeight="Bold"/>
+                                <Button x:Name="btnStopBot" Content="⏹️ Arrêter le bot" 
+                                        Click="StopBot_Click" Height="35" IsEnabled="False"
+                                        Background="#F04747" Foreground="White" FontWeight="Bold"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Fonctionnalités activées">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="chkWelcome" Content="Messages de bienvenue/départ" Margin="0,5"/>
+                                <CheckBox x:Name="chkModeration" Content="Modération automatique" Margin="0,5"/>
+                                <CheckBox x:Name="chkAutoRoles" Content="Rôles automatiques" Margin="0,5"/>
+                                <CheckBox x:Name="chkCustomCommands" Content="Commandes personnalisées" Margin="0,5"/>
+                                <CheckBox x:Name="chkAutoResponse" Content="Réponses automatiques" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogging" Content="Journalisation des événements" Margin="0,5"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Onglet Messages de Bienvenue -->
+            <TabItem Header="👋 Bienvenue">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Configuration des messages">
+                            <StackPanel Margin="10">
+                                <Label Content="ID du salon de bienvenue:"/>
+                                <TextBox x:Name="txtWelcomeChannelId" Margin="0,0,0,10"/>
+
+                                <Label Content="Message de bienvenue: (utilisez {user} pour mentionner)"/>
+                                <TextBox x:Name="txtWelcomeMessage" Text="Bienvenue {user} sur le serveur !" 
+                                         TextWrapping="Wrap" Height="60" Margin="0,0,0,10"/>
+
+                                <Label Content="Message de départ:"/>
+                                <TextBox x:Name="txtGoodbyeMessage" Text="Au revoir {user} !" 
+                                         TextWrapping="Wrap" Height="60" Margin="0,0,0,10"/>
+
+                                <CheckBox x:Name="chkPrivateMessage" Content="Envoyer un message privé à l'arrivée" Margin="0,5"/>
+
+                                <Label Content="Message privé de bienvenue:"/>
+                                <TextBox x:Name="txtPrivateWelcome" Text="Bienvenue sur notre serveur !" 
+                                         TextWrapping="Wrap" Height="60"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Onglet Modération -->
+            <TabItem Header="🛡️ Modération">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Anti-spam">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="chkAntiSpam" Content="Activer l'anti-spam" Margin="0,5"/>
+                                <Label Content="Messages maximum par minute:"/>
+                                <TextBox x:Name="txtMaxMessages" Text="5" Margin="0,0,0,10"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Filtres" Margin="0,10,0,0">
+                            <StackPanel Margin="10">
+                                <CheckBox x:Name="chkAntiInvite" Content="Bloquer les invitations Discord" Margin="0,5"/>
+                                <CheckBox x:Name="chkBadWords" Content="Filtre de mots interdits" Margin="0,5,0,10"/>
+
+                                <Label Content="Mots interdits (un par ligne):"/>
+                                <TextBox x:Name="txtBadWords" Height="100" TextWrapping="Wrap" 
+                                         AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Logs de modération" Margin="0,10,0,0">
+                            <StackPanel Margin="10">
+                                <Label Content="ID du salon de logs:"/>
+                                <TextBox x:Name="txtModLogChannel"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Onglet Commandes -->
+            <TabItem Header="⚡ Commandes">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Header="Ajouter une commande" Grid.Row="0">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Déclencheur:" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtCommandTrigger" Grid.Row="1" Grid.Column="0" Margin="0,0,5,10"/>
+
+                            <Label Content="Réponse:" Grid.Row="0" Grid.Column="1"/>
+                            <TextBox x:Name="txtCommandResponse" Grid.Row="1" Grid.Column="1" Margin="5,0,0,10"/>
+
+                            <CheckBox x:Name="chkIsEmbed" Content="Utiliser un embed" Grid.Row="2" Grid.Column="0" Margin="0,5"/>
+                            <Button Content="➕ Ajouter la commande" Grid.Row="3" Grid.ColumnSpan="2" 
+                                    Click="AddCommand_Click" Margin="0,10,0,0" Height="30"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Commandes configurées" Grid.Row="1" Margin="0,10,0,0">
+                        <ListBox x:Name="lstCommands" Margin="5"/>
+                    </GroupBox>
+
+                    <Button Content="🗑️ Supprimer la commande sélectionnée" Grid.Row="2" 
+                            Click="RemoveCommand_Click" Margin="0,5,0,0"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Onglet Réponses Auto -->
+            <TabItem Header="💬 Réponses Auto">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Header="Ajouter une réponse automatique" Grid.Row="0">
+                        <StackPanel Margin="10">
+                            <Label Content="Déclencheur (mot-clé):"/>
+                            <TextBox x:Name="txtAutoTrigger" Margin="0,0,0,10"/>
+
+                            <Label Content="Réponse:"/>
+                            <TextBox x:Name="txtAutoResponse" Margin="0,0,0,10"/>
+
+                            <CheckBox x:Name="chkExactMatch" Content="Correspondance exacte uniquement"/>
+                            <CheckBox x:Name="chkIgnoreCase" Content="Ignorer la casse" IsChecked="True" Margin="0,5,0,10"/>
+
+                            <Button Content="➕ Ajouter" Click="AddAutoResponse_Click" Height="30"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Réponses configurées" Grid.Row="1" Margin="0,10,0,0">
+                        <ListBox x:Name="lstAutoResponses" Margin="5"/>
+                    </GroupBox>
+
+                    <Button Content="🗑️ Supprimer" Grid.Row="2" Click="RemoveAutoResponse_Click" Margin="0,5,0,0"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Onglet Logging -->
+            <TabItem Header="📋 Logs">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Configuration des logs">
+                            <StackPanel Margin="10">
+                                <Label Content="ID du salon de logs:"/>
+                                <TextBox x:Name="txtLogChannel" Margin="0,0,0,15"/>
+
+                                <Label Content="Événements à logger:" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkLogDeletes" Content="Suppressions de messages" IsChecked="True" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogEdits" Content="Modifications de messages" IsChecked="True" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogJoins" Content="Arrivées de membres" IsChecked="True" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogLeaves" Content="Départs de membres" IsChecked="True" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogBans" Content="Bannissements" IsChecked="True" Margin="0,5"/>
+                                <CheckBox x:Name="chkLogRoles" Content="Changements de rôles" IsChecked="True" Margin="0,5"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <!-- Console de logs -->
+        <GroupBox Header="📝 Console" Grid.Row="2" Margin="10,0,10,10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtConsole" Grid.Row="0" IsReadOnly="True" 
+                         VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                         Background="#1E1E1E" Foreground="#D4D4D4" FontFamily="Consolas"/>
+                <Button Content="🗑️ Effacer" Grid.Row="1" Click="ClearConsole_Click" 
+                        HorizontalAlignment="Right" Margin="5"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
