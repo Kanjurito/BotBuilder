@@ -59,5 +59,3 @@ pip install discord.py
 ```
 ## 💾 Sauvegarde et Export
 L'application vous permet d'exporter toute la configuration de votre bot. Cela crée un fichier que vous pouvez réimporter plus tard pour retrouver tous vos réglages, commandes et filtres de modération en un clic.
-
-## Développé avec ❤️ en C#.
