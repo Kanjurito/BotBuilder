@@ -1,61 +1,63 @@
-# 🤖 Discord Bot Maker (C#)
+# 🤖 Discord Bot Maker
 
-Une application desktop intuitive conçue en **C#** pour créer, configurer et auto-héberger votre propre bot Discord sans aucune connaissance en programmation.
-
----
-
-## ✨ Fonctionnalités
-
-* **Auto-hébergement** : Lancez et gardez votre bot en ligne directement depuis l'application.
-* **Exportation Python** : Générez instantanément le code source en `.py` pour une migration facile.
-* **Gestion de Configuration** : Sauvegardez vos réglages dans un fichier pour les recharger plus tard.
-* **Interface Intuitive** : Une gestion par onglets pour configurer chaque module séparément.
+Ever wanted your own Discord bot but didn't want to write a single line of code? That's exactly why this app exists. Built in **C#**, Discord Bot Maker lets you create, configure, and host your own bot from a simple desktop interface.
 
 ---
 
-## 🛠️ Guide de Configuration
+## What it does
 
-### 1. Obtenir son Token Discord
-Le **Token** est la clé secrète de votre bot. Ne le partagez jamais !
-1. Rendez-vous sur le [Discord Developer Portal](https://discord.com/developers/applications).
-2. Cliquez sur **"New Application"** et donnez-lui un nom.
-3. Allez dans l'onglet **"Bot"**, cliquez sur **"Reset Token"** pour l'afficher et copiez-le.
-4. **Important** : Faites défiler vers le bas et activez les **"Privileged Gateway Intents"** (Presence, Server Members, et Message Content) pour que le bot puisse lire les messages et voir les membres.
-
-### 2. Le Préfixe des commandes
-C'est le symbole utilisé pour interpeller le bot. 
-> **Exemple :** Si vous choisissez `!`, la commande d'aide sera `!help`.
-
-### 3. Récupérer l'ID d'un salon (Channel ID)
-Pour les fonctions de Bienvenue ou de Logs, l'application demande un ID numérique :
-1. Allez dans vos **Paramètres Discord** > **Avancés** > Activez le **Mode Développeur**.
-2. Faites un clic droit sur le salon souhaité dans votre serveur.
-3. Cliquez sur **"Copier l'identifiant"**.
+* **Host it yourself**: Start your bot and keep it online straight from the app. No extra setup needed.
+* **Export to Python**: Want to move your bot to a server later? Generate the `.py` source code in one click.
+* **Save your setup**: Store your settings in a file and pick up right where you left off.
+* **Easy to navigate**: Each feature lives in its own tab, so you only deal with one thing at a time.
 
 ---
 
-## 📂 Présentation des Onglets
+## Getting started / installation
 
-| Onglet | Description |
+### 1. Get your Discord token
+Your **token** is your bot's secret key, so keep it to yourself and never share it with anyone!
+
+1. Head over to the [Discord Developer Portal](https://discord.com/developers/applications).
+2. Click **"New Application"** and give it a name.
+3. Open the **"Bot"** tab, click **"Reset Token"**, and copy the token that appears.
+4. **Don't skip this one:** scroll down and turn on the **"Privileged Gateway Intents"** (Presence, Server Members, and Message Content). Without them, your bot won't be able to read messages or see who's in your server.
+
+### 2. Pick a command prefix
+The prefix is the symbol people type to get your bot's attention.
+> **For example:** if you choose `!`, your help command will be `!help`.
+
+### 3. Find a channel ID
+The Welcome and Logs features need to know which channel to post in. Here's how to grab its ID:
+
+1. Open your **Discord Settings** > **Advanced** and turn on **Developer Mode**.
+2. Right-click the channel you want in your server.
+3. Click **"Copy Channel ID"**.
+
+---
+
+## A quick tour of the tabs
+
+| Tab | What it's for |
 | :--- | :--- |
-| **Configuration** | Définissez le nom, le préfixe et le token du bot. |
-| **Bienvenue** | Configurez un message d'accueil personnalisé et le salon de destination. |
-| **Modération** | Activez l'anti-spam, bloquez les invitations (anti-raid) et filtrez les insultes. |
-| **Commandes** | Créez vos propres commandes personnalisées. |
-| **Réponse Auto** | Le bot répond automatiquement lorsqu'il détecte un mot spécifique. |
-| **Logs** | Suivez les événements du serveur dans un salon dédié (nécessite un ID de salon). |
+| **Configuration** | Set your bot's name, prefix, and token. |
+| **Welcome** | Write a custom greeting for new members and choose where it's sent. |
+| **Moderation** | Turn on anti-spam, block invite links (anti-raid), and filter insults. |
+| **Commands** | Build your own custom commands. |
+| **Auto-Reply** | Have your bot answer automatically when it spots a certain word. |
+| **Logs** | Keep an eye on server activity in a dedicated channel (needs a channel ID). |
 
 ---
 
-## 🐍 Exportation vers Python
+## 🐍 Moving to Python
 
-Si vous souhaitez héberger votre bot sur un VPS ou un serveur Linux, vous pouvez exporter le code en `.py`.
+Planning to run your bot on a VPS or a Linux server? You can export your project as a `.py` file.
 
-### Installation des prérequis
-Assurez-vous d'avoir [Python](https://www.python.org/) installé, puis installez la bibliothèque **discord.py** via votre terminal :
+### What you'll need
+Make sure [Python](https://www.python.org/) is installed, then add the **discord.py** library from your terminal:
 
 ```bash
 pip install discord.py
 ```
-## 💾 Sauvegarde et Export
-L'application vous permet d'exporter toute la configuration de votre bot. Cela crée un fichier que vous pouvez réimporter plus tard pour retrouver tous vos réglages, commandes et filtres de modération en un clic.
+
+## Keep It Simple Stupid
