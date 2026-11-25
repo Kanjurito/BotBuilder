@@ -1,4 +1,4 @@
-# 🤖 Discord Bot Maker
+# Discord Bot Maker
 
 Ever wanted your own Discord bot but didn't want to write a single line of code? That's exactly why this app exists. Built in **C#**, Discord Bot Maker lets you create, configure, and host your own bot from a simple desktop interface.
 
